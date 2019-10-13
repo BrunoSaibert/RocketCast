@@ -12,16 +12,10 @@
 
 ### Moderate
 
-- [ ] Refatorar: Criar um objeto para guardar o estado, funcionalidades e configurações do player.
-- [ ] Quando o audio finalizar, iniciar o próximo da lista.
-- [ ] Quando chegar no último audio, voltar a reproduzir o primeiro.
+- [x] Refatorar: Criar um objeto para guardar o estado, funcionalidades e configurações do player.
+- [x] Quando o audio finalizar, iniciar o próximo da lista.
+- [x] Quando chegar no último audio, voltar a reproduzir o primeiro.
 
 ### Hard
 
-- [ ] .
-- [ ] .
-- [ ] .
-- [ ] .
-- [ ] .
-- [ ] .
 - [ ] .
