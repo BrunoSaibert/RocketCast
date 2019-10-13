@@ -1,14 +1,43 @@
-window.player = {
-  cover: document.querySelector(".card-image"),
-  title: document.querySelector(".card-content h5"),
-  artist: document.querySelector(".artist"),
-  audio: document.querySelector("audio"),
+import audios from "./data.js";
+import { path, secondsToMinutes } from "./utils.js";
+import elements from "./playerElements.js";
+
+export default {
   audioData: audios,
   currentAudio: {},
   currentPlaying: 0,
+  isPlaying: false,
   start() {
+    elements.get.call(this);
+
     this.update();
-    this.audio.onended = () => this.next();
+  },
+  play() {
+    this.isPlaying = true;
+    this.audio.play();
+    this.playPause.innerText = "pause";
+  },
+  pause() {
+    this.isPlaying = false;
+    this.audio.pause();
+    this.playPause.innerText = "play_arrow";
+  },
+  togglePlayPause() {
+    if (this.isPlaying) {
+      this.pause();
+    } else {
+      this.play();
+    }
+  },
+  toggleMute() {
+    this.audio.muted = !this.audio.muted;
+    this.mute.innerText = this.audio.muted ? "volume_off" : "volume_up";
+  },
+  setVolume(value) {
+    this.audio.volume = value / 100;
+  },
+  setSeek(value) {
+    this.audio.currentTime = value;
   },
   next() {
     this.currentPlaying++;
@@ -16,6 +45,11 @@ window.player = {
     if (this.currentPlaying === this.audioData.length) this.restart();
 
     this.update();
+    this.play();
+  },
+  timeUpdate() {
+    this.currentDuration.innerText = secondsToMinutes(this.audio.currentTime);
+    this.seekbar.value = this.audio.currentTime;
   },
   update() {
     this.currentAudio = this.audioData[this.currentPlaying];
@@ -26,7 +60,11 @@ window.player = {
 center / cover`;
     this.title.innerText = this.currentAudio.title;
     this.artist.innerHTML = `<i class="material-icons">account_circle</i> ${this.currentAudio.artist}`;
-    this.audio.src = path(this.currentAudio.file);
+    elements.createAudioElement.call(this, path(this.currentAudio.file));
+
+    this.audio.onloadeddata = () => {
+      elements.actions.call(this);
+    };
   },
   restart() {
     this.currentPlaying = 0;
