@@ -2,6 +2,8 @@
 
 ## RocketCast
 
+![RocketCast](https://user-images.githubusercontent.com/40339324/66724560-b6268f80-edfd-11e9-84cd-ca9d94924ed9.jpg)
+
 ### Easy
 
 - [x] Iniciar a estrutura do layout (HTML e CSS).
